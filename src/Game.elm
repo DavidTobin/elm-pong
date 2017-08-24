@@ -2,6 +2,7 @@ module Game exposing (..)
 
 import Color exposing (..)
 import Player exposing (..)
+import Ball exposing (..)
 import Keyboard exposing (..)
 import Time exposing (..)
 import Settings exposing (..)
@@ -16,6 +17,7 @@ type alias Board =
 type alias Game =
     { board : Board
     , players : List Player
+    , balls : List Ball
     }
 
 

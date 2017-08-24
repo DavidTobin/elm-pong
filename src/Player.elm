@@ -60,10 +60,16 @@ tick player =
     in
         case player.movement of
             Up ->
-                { player | position = ( x, y - 3 ) } ! []
+                if (y - playerSpeed) >= 0 then
+                    { player | position = ( x, y - playerSpeed ) } ! []
+                else
+                    player ! []
 
             Down ->
-                { player | position = ( x, y + 3 ) } ! []
+                if (y + playerSpeed) <= (boardSize - (boardSize // 8)) then
+                    { player | position = ( x, y + playerSpeed ) } ! []
+                else
+                    player ! []
 
             _ ->
                 player ! []

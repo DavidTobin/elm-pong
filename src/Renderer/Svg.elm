@@ -5,6 +5,8 @@ import Svg.Attributes exposing (..)
 import Game exposing (..)
 import Color.Convert exposing (..)
 import Player exposing (..)
+import Ball exposing (..)
+import Settings exposing (..)
 
 
 render : Game -> Svg a
@@ -22,6 +24,7 @@ render game =
              , renderDebug game
              ]
                 ++ List.map (\player -> renderPlayer player) game.players
+                ++ List.map (\ball -> renderBall ball) game.balls
             )
 
 
@@ -50,6 +53,29 @@ renderDebug game =
         ]
 
 
+renderBall : Ball -> Svg a
+renderBall ball =
+    let
+        ( x_, y_ ) =
+            ball.position
+
+        x =
+            toString x_
+
+        y =
+            toString y_
+    in
+        g []
+            [ circle
+                [ toString ball.size |> r
+                , cx x
+                , cy y
+                , colorToCssRgb ball.color |> fill
+                ]
+                []
+            ]
+
+
 renderPlayer : Player -> Svg a
 renderPlayer player =
     let
@@ -66,7 +92,7 @@ renderPlayer player =
             [ rect
                 [ colorToCssRgb player.color |> fill
                 , width "5"
-                , height "100"
+                , height <| toString (boardSize // 7)
                 , x x_
                 , y y_
                 ]

@@ -6,7 +6,9 @@ import Renderer.Svg exposing (..)
 import Game exposing (Game, Board)
 import Color exposing (..)
 import Player exposing (..)
+import Ball exposing (..)
 import Char exposing (..)
+import Settings exposing (..)
 
 
 main =
@@ -31,15 +33,18 @@ init : ( Model, Cmd Msg )
 init =
     let
         board =
-            Board black 750
+            Board black boardSize
 
         player1 =
-            Player ( 38, 40 ) ( 50, 375 ) white Player.Nothing
+            Player ( 38, 40 ) ( boardSize // 15, boardSize // 2 ) white Player.Nothing
 
         player2 =
-            Player ( 37, 39 ) ( 700, 375 ) green Player.Nothing
+            Player ( 37, 39 ) ( boardSize - (boardSize // 15), boardSize // 2 ) green Player.Nothing
+
+        ball =
+            Ball 5 ( boardSize // 2, boardSize // 2 ) white
     in
-        { game = Game board [ player1, player2 ]
+        { game = Game board [ player1, player2 ] [ ball ]
         }
             ! []
 
